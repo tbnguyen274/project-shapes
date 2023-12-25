@@ -53,7 +53,7 @@ void calculateAreaPerimeter(void* shape, ShapeType type, double& area, double& p
 
 double extractNumber(const string& s) {
     unsigned int i = 0;
-    while (i < s.length() && !isdigit(s[i]) && s[i] != '.') {
+    while (i < s.length() && !isdigit(s[i])) {
         i++;
     }
     return stod(s.substr(i));
