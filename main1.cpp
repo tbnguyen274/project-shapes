@@ -1,5 +1,3 @@
-// use void* pointers
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -131,7 +129,12 @@ int main() {
     void* minPerimeterShape = nullptr;
     void* minAreaShape = nullptr;
 
-    int squareCount = 0;
+    ShapeType maxPerimeterType;
+    ShapeType maxAreaType;
+    ShapeType minPerimeterType;
+    ShapeType minAreaType;
+
+    int squareCount = 0;    
     int circleCount = 0;
     int rectangleCount = 0;
 
@@ -146,21 +149,25 @@ int main() {
         if (perimeter > maxPerimeter) {
             maxPerimeter = perimeter;
             maxPerimeterShape = shapes[i];
+            maxPerimeterType = types[i];
         }
 
         if (area > maxArea) {
             maxArea = area;
             maxAreaShape = shapes[i];
+            maxAreaType = types[i];
         }
 
         if (perimeter < minPerimeter) {
             minPerimeter = perimeter;
             minPerimeterShape = shapes[i];
+            minPerimeterType = types[i];
         }
 
         if (area < minArea) {
             minArea = area;
             minAreaShape = shapes[i];
+            minAreaType = types[i];
         }
 
         switch (types[i]) {
@@ -178,25 +185,25 @@ int main() {
 
     if (maxPerimeterShape != nullptr) {
         cout << "\nHinh co chu vi lon nhat: ";
-        printShapeInfo(maxPerimeterShape, types[0]);
+        printShapeInfo(maxPerimeterShape, maxAreaType);
         cout << " => perimeter=" << maxPerimeter << endl;
     }
 
     if (maxAreaShape != nullptr) {
         cout << "Hinh co dien tich lon nhat: ";
-        printShapeInfo(maxAreaShape, types[0]);
+        printShapeInfo(maxAreaShape, maxAreaType);
         cout << " => area=" << maxArea << endl;
     }
 
     if (minPerimeterShape != nullptr) {
         cout << "Hinh co chu vi nho nhat: ";
-        printShapeInfo(minPerimeterShape, types[0]);
+        printShapeInfo(minPerimeterShape, minPerimeterType);
         cout << " => perimeter=" << minPerimeter << endl;
     }
 
     if (minAreaShape != nullptr) {
         cout << "Hinh co dien tich nho nhat: ";
-        printShapeInfo(minAreaShape, types[0]);
+        printShapeInfo(minAreaShape, minAreaType);
         cout << " => area=" << minArea << endl;
     }
 
