@@ -185,7 +185,7 @@ int main() {
 
     if (maxPerimeterShape != nullptr) {
         cout << "\nHinh co chu vi lon nhat: ";
-        printShapeInfo(maxPerimeterShape, maxAreaType);
+        printShapeInfo(maxPerimeterShape, maxPerimeterType);
         cout << " => perimeter=" << maxPerimeter << endl;
     }
 
