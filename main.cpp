@@ -42,8 +42,8 @@ void calculateAreaPerimeter(Shape& shape) {
             shape.perimeter = 4 * shape.square->side;
             break;
         case Shape::CIRCLE:
-            shape.area = M_PI * shape.circle->radius * shape.circle->radius;
-            shape.perimeter = 2 * M_PI * shape.circle->radius;
+            shape.area = 3.14 * shape.circle->radius * shape.circle->radius;
+            shape.perimeter = 2 * 3.14 * shape.circle->radius;
             break;
         case Shape::RECTANGLE:
             shape.area = shape.rectangle->width * shape.rectangle->height;
@@ -82,6 +82,14 @@ int main() {
     ifstream inputFile("input.txt");
     if (!inputFile.is_open()) {
         cout << "Error opening file." << endl;
+        return 1;
+    }
+
+    ofstream reader_out;
+    reader_out.open("output.txt", ios::out);
+
+    if (!reader_out.good()) {
+        cout << "Error opening output file." << endl;
         return 1;
     }
 
@@ -168,21 +176,25 @@ int main() {
         }
     }
 
-   cout << "\nHinh co chu vi lon nhat: ";
+    cout << "\nHinh co chu vi lon nhat: ";
     printShapeInfo(*maxPerimeterShape);
     cout << " => perimeter=" << maxPerimeter << endl;
+    reader_out << "Chu vi lon nhat la : " << maxPerimeter << endl;
 
     cout << "Hinh co dien tich lon nhat: ";
     printShapeInfo(*maxAreaShape);
     cout << " => area=" << maxArea << endl;
+    reader_out << "Dien tich lon nhat la: " << maxArea << endl;
 
     cout << "Hinh co chu vi nho nhat: ";
     printShapeInfo(*minPerimeterShape);
     cout << " => perimeter=" << minPerimeter << endl;
+    reader_out << "Chu vi nho nhat la : " << minPerimeter << endl;
 
     cout << "Hinh co dien tich nho nhat: ";
     printShapeInfo(*minAreaShape);
     cout << " => area=" << minArea << endl;
+    reader_out << "Dien tich nho nhat la: " << minArea << endl;
 
 
 
@@ -190,6 +202,13 @@ int main() {
     cout << "+ Square: " << squareCount << endl;
     cout << "+ Circle: " << circleCount << endl;
     cout << "+ Rectangle: " << rectangleCount << endl;
+
+    reader_out << "\nThong ke cac hinh da doc" << endl;
+    reader_out << "+ Square: " << squareCount << endl;
+    reader_out << "+ Circle: " << circleCount << endl;
+    reader_out << "+ Rectangle: " << rectangleCount << endl;
+
+    reader_out.close();
 
     // Cleanup memory
     for (int i = 0; i < totalShapes; ++i) {

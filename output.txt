@@ -1,0 +1,9 @@
+Chu vi lon nhat la : 75.36
+Dien tich lon nhat la: 452.16
+Chu vi nho nhat la : 14
+Dien tich nho nhat la: 12
+
+Thong ke cac hinh da doc
++ Square: 3
++ Circle: 2
++ Rectangle: 2
