@@ -1,34 +1,37 @@
 #include "utils.h"
 
 int main() {
-    ifstream reader;
-    reader.open("input.txt", ios::in);
+    // doc tap tin
+    ifstream reader_in;
+    reader_in.open("input.txt", ios::in);
 
-    if (!reader.good()) {
-        cout << "Error opening file." << endl;
+    if (!reader_in.good()) {
+        cout << "Loi khong mo duoc file." << endl;
         return 1;
     }
 
+    // ghi tap tin
     ofstream reader_out;
     reader_out.open("output.txt", ios::out);
 
     if (!reader_out.good()) {
-        cout << "Error opening output file." << endl;
+        cout << "Loi khong mo duoc file." << endl;
         return 1;
     }
 
 
     int totalShapes;
-    // the first line of input.txt is the total number of shapes
-    reader >> totalShapes;  
-    reader.ignore(numeric_limits<streamsize>::max(), '\n');
+    // doc so luong cac hinh
+    reader_in >> totalShapes;  
+    reader_in.ignore(numeric_limits<streamsize>::max(), '\n');
 
     void** shapes = new void* [Max];
     ShapeType* types = new ShapeType[Max];
 
+    /*doc va xu ly du lieu*/
     for (int i = 0; i < totalShapes; ++i) {
         string buffer;
-        getline(reader, buffer);
+        getline(reader_in, buffer);
 
         if (buffer.find("Square") != string::npos) {
             shapes[i] = createSquare(buffer);
@@ -44,7 +47,7 @@ int main() {
         }
     }
 
-    reader.close();
+    reader_in.close();
 
     double maxPerimeter = 0;
     double maxArea = 0;
@@ -65,14 +68,14 @@ int main() {
     int circleCount = 0;
     int rectangleCount = 0;
 
+    /*Tinh toan va in thong tin*/
     for (int i = 0; i < totalShapes; ++i) {
         double area, perimeter;
 
         calculateAreaPerimeter(shapes[i], types[i], area, perimeter);
-        print(shapes[i], types[i]);
+        printShapeInfo(shapes[i], types[i]);
         printShapeSize(area, perimeter);
 
-        // Tracking max/min and counting shapes
         if (perimeter > maxPerimeter) {
             maxPerimeter = perimeter;
             maxPerimeterShape = shapes[i];
@@ -112,15 +115,15 @@ int main() {
 
     if (maxPerimeterShape != nullptr) {
         cout << "\nHinh co chu vi lon nhat: ";
-        print(maxPerimeterShape, maxPerimeterType);
+        printShapeInfo(maxPerimeterShape, maxPerimeterType);
         cout << " => perimeter=" << maxPerimeter << endl;
 
-        reader_out << "Chu vi lon nhat la : " << maxPerimeter << endl;
+        reader_out << "Chu vi lon nhat la: " << maxPerimeter << endl;
     }
 
     if (maxAreaShape != nullptr) {
         cout << "Hinh co dien tich lon nhat: ";
-        print(maxAreaShape, maxAreaType);
+        printShapeInfo(maxAreaShape, maxAreaType);
         cout << " => area=" << maxArea << endl;
         
         reader_out << "Dien tich lon nhat la: " << maxArea << endl;
@@ -128,20 +131,21 @@ int main() {
 
     if (minPerimeterShape != nullptr) {
         cout << "Hinh co chu vi nho nhat: ";
-        print(minPerimeterShape, minPerimeterType);
+        printShapeInfo(minPerimeterShape, minPerimeterType);
         cout << " => perimeter=" << minPerimeter << endl;
 
-        reader_out << "Chu vi nho nhat la : " << minPerimeter << endl;
+        reader_out << "Chu vi nho nhat la: " << minPerimeter << endl;
     }
 
     if (minAreaShape != nullptr) {
         cout << "Hinh co dien tich nho nhat: ";
-        print(minAreaShape, minAreaType);
+        printShapeInfo(minAreaShape, minAreaType);
         cout << " => area=" << minArea << endl;
 
         reader_out << "Dien tich nho nhat la: " << minArea << endl;
     }
-
+    
+    /*Thong ke so luong*/
     cout << "\nThong ke cac hinh da doc" << endl;
     cout << "+ Square: " << squareCount << endl;
     cout << "+ Circle: " << circleCount << endl;
@@ -153,10 +157,8 @@ int main() {
     reader_out << "+ Rectangle: " << rectangleCount << endl;
 
     reader_out.close();
-
-
-
-    // Cleanup memory
+    
+    /*Thu hoi bo nho*/
     for (int i = 0; i < totalShapes; ++i) {
         deleteShape(shapes[i], types[i]);
     }

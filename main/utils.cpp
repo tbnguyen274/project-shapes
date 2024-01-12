@@ -28,28 +28,28 @@ void calculateAreaPerimeter(void* shape, ShapeType type, double& area, double& p
 }
 
 
-void print(Square* square) {
+void printShapeInfo(Square* square) {
     cout << "Square a=" << square->side;
 }
 
-void print(Circle* circle) {
+void printShapeInfo(Circle* circle) {
     cout << "Circle r=" << circle->radius;
 }
 
-void print(Rectangle* rectangle) {
+void printShapeInfo(Rectangle* rectangle) {
     cout << "Rectangle w=" << rectangle->width
         << ", h=" << rectangle->height;
 }
 
-void print(void* shape, ShapeType type) {
+void printShapeInfo(void* shape, ShapeType type) {
     if (ShapeType::SQUARE == type) {
-        print(static_cast<Square*>(shape));
+        printShapeInfo(static_cast<Square*>(shape));
     }
     else if (ShapeType::CIRCLE == type) {
-        print(static_cast<Circle*>(shape));
+        printShapeInfo(static_cast<Circle*>(shape));
     }
     else if (ShapeType::RECTANGLE == type) {
-        print(static_cast<Rectangle*>(shape));
+        printShapeInfo(static_cast<Rectangle*>(shape));
     }
 }
 

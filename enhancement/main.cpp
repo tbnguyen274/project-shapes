@@ -1,118 +1,50 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cmath>
-#include <limits>
-
-using namespace std;
-
-struct Square {
-    double side;
-};
-
-struct Circle {
-    double radius;
-};
-
-struct Rectangle {
-    double width;
-    double height;
-};
-
-struct Shape {
-    enum ShapeType {
-        SQUARE,
-        CIRCLE,
-        RECTANGLE
-    };
-
-    ShapeType type;
-    double area;
-    double perimeter;
-
-    Square* square;
-    Circle* circle;
-    Rectangle* rectangle;
-};
-
-void calculateAreaPerimeter(Shape& shape) {
-    switch (shape.type) {
-        case Shape::SQUARE:
-            shape.area = shape.square->side * shape.square->side;
-            shape.perimeter = 4 * shape.square->side;
-            break;
-        case Shape::CIRCLE:
-            shape.area = 3.14 * shape.circle->radius * shape.circle->radius;
-            shape.perimeter = 2 * 3.14 * shape.circle->radius;
-            break;
-        case Shape::RECTANGLE:
-            shape.area = shape.rectangle->width * shape.rectangle->height;
-            shape.perimeter = 2 * (shape.rectangle->width + shape.rectangle->height);
-            break;
-    }
-}
-
-void printShapeInfo(const Shape& shape) {
-    switch (shape.type) {
-        case Shape::SQUARE:
-            cout << "Square a=" << shape.square->side;
-            break;
-        case Shape::CIRCLE:
-            cout << "Circle r=" << shape.circle->radius;
-            break;
-        case Shape::RECTANGLE:
-            cout << "Rectangle w=" << shape.rectangle->width << ", h=" << shape.rectangle->height;
-            break;
-    }
-}
-
-void printShapeSize(const Shape& shape) {
-    cout << " => ";
-    cout << "area=" << shape.area << ", perimeter=" << shape.perimeter << endl;    
-}
-
-double extractNumber(const string& s) {
-    size_t i = 0;
-    while(i < s.size() && !isdigit(s[i])) i++;
-    return stod(s.substr(i));
-}
+#include "utils.h"
 
 int main() {
-    
-    ifstream inputFile("input.txt");
-    if (!inputFile.is_open()) {
-        cout << "Error opening file." << endl;
+    // doc tap tin
+    ifstream reader_in;
+    reader_in.open("input.txt", ios::in);
+
+    if (!reader_in.good()) {
+        cout << "Loi khong mo duoc file." << endl;
         return 1;
     }
 
+    // ghi tap tin
     ofstream reader_out;
     reader_out.open("output.txt", ios::out);
 
     if (!reader_out.good()) {
-        cout << "Error opening output file." << endl;
+        cout << "Loi khong mo duoc file." << endl;
         return 1;
     }
 
     int totalShapes;
-    inputFile >> totalShapes;  // Read the total number of shapes
-    inputFile.ignore(numeric_limits<streamsize>::max(), '\n');  // Consume the newline character
+    // doc so luong hinh trong tap tin
+    reader_in >> totalShapes;
+    reader_in.ignore(numeric_limits<streamsize>::max(), '\n');
 
     Shape* shapes = new Shape[totalShapes];
     string line;
 
+    /*doc va xu ly du lieu*/
     for (int i = 0; i < totalShapes; ++i) {
-        getline(inputFile, line);
+        getline(reader_in, line);
         Shape& shape = shapes[i];
 
         if (line.find("Square") != string::npos) {
             shape.type = Shape::SQUARE;
             shape.square = new Square;
             shape.square->side = extractNumber(line);
-        } else if (line.find("Circle") != string::npos) {
+        } 
+        
+        else if (line.find("Circle") != string::npos) {
             shape.type = Shape::CIRCLE;
             shape.circle = new Circle;
             shape.circle->radius = extractNumber(line);
-        } else if (line.find("Rectangle") != string::npos) {
+        } 
+        
+        else if (line.find("Rectangle") != string::npos) {
             shape.type = Shape::RECTANGLE;
             shape.rectangle = new Rectangle;
 
@@ -125,7 +57,7 @@ int main() {
         calculateAreaPerimeter(shape);
     }
 
-    inputFile.close();
+    reader_in.close();
 
     double maxPerimeter = 0;
     double maxArea = 0;
@@ -138,6 +70,7 @@ int main() {
     int circleCount = 0;
     int rectangleCount = 0;
 
+    /*Tinh toan va in thong tin*/
     for (int i = 0; i < totalShapes; ++i) {
         Shape& shape = shapes[i];
         printShapeInfo(shape);
@@ -179,7 +112,7 @@ int main() {
     cout << "\nHinh co chu vi lon nhat: ";
     printShapeInfo(*maxPerimeterShape);
     cout << " => perimeter=" << maxPerimeter << endl;
-    reader_out << "Chu vi lon nhat la : " << maxPerimeter << endl;
+    reader_out << "Chu vi lon nhat la: " << maxPerimeter << endl;
 
     cout << "Hinh co dien tich lon nhat: ";
     printShapeInfo(*maxAreaShape);
@@ -189,15 +122,14 @@ int main() {
     cout << "Hinh co chu vi nho nhat: ";
     printShapeInfo(*minPerimeterShape);
     cout << " => perimeter=" << minPerimeter << endl;
-    reader_out << "Chu vi nho nhat la : " << minPerimeter << endl;
+    reader_out << "Chu vi nho nhat la: " << minPerimeter << endl;
 
     cout << "Hinh co dien tich nho nhat: ";
     printShapeInfo(*minAreaShape);
     cout << " => area=" << minArea << endl;
     reader_out << "Dien tich nho nhat la: " << minArea << endl;
 
-
-
+    /*Thong ke so luong*/
     cout << "\nThong ke cac hinh da doc" << endl;
     cout << "+ Square: " << squareCount << endl;
     cout << "+ Circle: " << circleCount << endl;
@@ -210,7 +142,7 @@ int main() {
 
     reader_out.close();
 
-    // Cleanup memory
+    /*Thu hoi bo nho*/
     for (int i = 0; i < totalShapes; ++i) {
         Shape& shape = shapes[i];
         switch (shape.type) {

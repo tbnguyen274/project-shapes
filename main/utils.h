@@ -39,10 +39,10 @@ void calculateAreaPerimeter(void* shape, ShapeType type, double& area, double& p
 /*
 Hàm in thông tin hình
 */
-void print(Square* square);
-void print(Circle* circle);
-void print(Rectangle* rectangle);
-void print(void* shape, ShapeType type);
+void printShapeInfo(Square* square);
+void printShapeInfo(Circle* circle);
+void printShapeInfo(Rectangle* rectangle);
+void printShapeInfo(void* shape, ShapeType type);
 
 // Hàm trích xuất số từ chuỗi
 double extractNumber(const string& s);
