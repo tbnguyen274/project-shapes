@@ -1,10 +1,10 @@
 # Project Shapes
 
-1. Danh sách thành viên thực hiện đồ án
+## 1. Danh sách thành viên thực hiện đồ án
    - Họ và tên: Nguyễn Thái Bảo, MSSV: 23120023
    - Họ và tên: Lê Minh Hải, MSSV: 23120041
 
-2. Các chức năng đã thực hiện
+## 2. Các chức năng đã thực hiện
    - Đọc nội dung tập tin input.txt.
    - In ra màn hình thông tin các hình vừa đọc, đồng thời in ra chu vi, diện tích mỗi hình.
    - In ra màn hình thông tin hình có chu vi lớn nhất, hình có diện tích lớn nhất.
@@ -17,10 +17,10 @@
       + Diện tích nhỏ nhất.
       + Thông kế số lượng các loại hình đã đọc.
 
-3. Các chức năng chưa thực hiện
+## 3. Các chức năng chưa thực hiện
    Không có
 
-4. Các nội dung/ chức năng đã tìm hiểu thêm/ bỏ công tìm hiểu sâu và giáo viên nên cân nhắc cộng điểm nếu có
+## 4. Các nội dung/ chức năng đã tìm hiểu thêm/ bỏ công tìm hiểu sâu và giáo viên nên cân nhắc cộng điểm nếu có
    - Ghi các nội dung quan trọng vào tập tin output.txt
    - Sản phẩm nộp gồm 2 thư mục main và enhancement:
       + Thư mục main là thư mục chứa mã nguồn chính cho đồ án, nội dung có sử dụng mảng bất chấp kiểu dữ liệu
@@ -33,6 +33,6 @@
       tính toán có thể được thực hiện dễ dàng hơn thông qua đối tượng Shape và mã nguồn được cô đọng, dễ kiểm
       soát hơn.
 
-5. Điểm tự đánh giá từng thành viên trên thang 10.
+## 5. Điểm tự đánh giá từng thành viên trên thang 10.
    - Nguyễn Thái Bảo: 10
    - Lê Minh Hải: 10
